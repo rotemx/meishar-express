@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script>
+		
+		async function getHelloWorld(){
+			let response = await fetch('http://localhost:3000/hello');
+			console.log('response:');
+			console.log(await response.json());
+		}
+	</script>
+	
+	
+</head>
+<body>
+	<h1>
+		Express Client Demo
+	</h1>
+<h2>
+	<input type="button" value="Get Hello" onclick="getHelloWorld()">
+</h2>
+</body>
+</html>
