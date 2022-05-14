@@ -6,7 +6,7 @@
 	<script>
 		
 		async function getHelloWorld(){
-			let response = await fetch('http://localhost:3000/hello');
+			let response = await fetch('http://localhost:3000/hello?user=rotem&password=1234533333');
 			console.log('response:');
 			console.log(await response.json());
 		}
