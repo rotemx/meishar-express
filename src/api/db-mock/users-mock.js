@@ -1,9 +1,10 @@
- const USERS = [{
-	username:'rotem',
-	password: '12345'
+const USERS = [{
+	id      : 'myUserId008w2',
+	username: 'rotem',
+	password: 'blahblah'
 }]
 
- 
- module.exports = {
+
+module.exports = {
 	USERS
- }
+}

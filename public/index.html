@@ -3,23 +3,83 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
 	<script>
 		
-		async function getHelloWorld(){
+		async function getHelloWorld()
+		{
 			let response = await fetch('http://localhost:3000/hello?user=rotem&password=1234533333');
 			console.log('response:');
 			console.log(await response.json());
 		}
+		
+		function saveToken(token) {
+			localStorage.setItem("token",token)
+		}
+		
+		async function authenticatedFetch(url, body, method = "GET") {
+			const token = localStorage.getItem('token');
+			
+			const headers = new Headers();
+			headers.append("Content-Type", "application/json");
+			headers.append("Authorization", "Bearer" + token);
+			
+			return fetch(url, {
+				method,
+				body,
+				headers
+			})
+			
+		}
+		
+		
+		async function login()
+		{
+			const headers = new Headers();
+			headers.append("Content-Type", "application/json");
+			const user     = $('#username-input').val();
+			const password = $('#password-input').val();
+			console.log(`user ${user} pass ${password} `);
+			
+			
+			let response = await fetch('http://localhost:3000/login', {
+				method  : "POST",
+				headers,
+				body    : JSON.stringify({user,password}),
+				// body:raw,
+				redirect: 'follow'
+			});
+			
+			console.log('RESPONSE:');
+			let 
+				res = await response.json(),
+				{token} =  res;
+			
+			console.log(token, 'token');
+			saveToken(token);
+			console.log(res);
+			
+			
+			// alert(res.status);
+			
+		}
 	</script>
-	
-	
+
+
 </head>
 <body>
 	<h1>
 		Express Client Demo
 	</h1>
-<h2>
-	<input type="button" value="Get Hello" onclick="getHelloWorld()">
-</h2>
+	<h2>
+		user:
+		<input id="username-input" value="rotem">
+		pass:
+		<input id="password-input" value="blahblah">
+		
+		<input type="button" value="Login" onclick="login()">
+	</h2>
 </body>
 </html>
+<!---->
